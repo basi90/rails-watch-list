@@ -1,5 +1,6 @@
 class BookmarksController < ApplicationController
   before_action :set_list, only: [:new, :create, :destroy]
+  before_action :set_bm, only: [:destroy]
 
   def new
     @bookmark = Bookmark.new
@@ -15,6 +16,8 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
+    @bookmark.destroy
+    redirect_to list_path(@list)
   end
 
   private
@@ -24,5 +27,9 @@ class BookmarksController < ApplicationController
 
   def set_list
     @list = List.find(params[:list_id])
+  end
+
+  def set_bm
+    @bookmark = Bookmark.find(params[:id])
   end
 end
